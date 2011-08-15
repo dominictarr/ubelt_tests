@@ -1,0 +1,13 @@
+{ "name": "d-utils_tests"
+, "version": "1.0.0"
+, "description": ""
+, "homepage": "http://github.com/dominictarr/d-utils_tests"
+, "repository": 
+  { "type": "git"
+  , "url": "https://github.com/dominictarr/d-utils_tests.git" }
+, "dependencies": {
+    "d-utils": "*"
+  }
+, "devDependencies": {}
+, "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://bit.ly/dominictarr)"
+, "scripts": { "test": "meta-test test/*.js" } }
