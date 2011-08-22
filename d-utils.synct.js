@@ -8,12 +8,15 @@ var objects = require('d-utils/objects')
   , path = require('path')
 
 exports ['has all the methods from all the modules'] = function (){
-  var ls = fs.readdirSync(path.join(__dirname, '..'))
 
+  var d_dir = require.resolve('d-utils')
+  var ls = fs.readdirSync(path.dirname(d_dir))  
   var lsjs = objects.map(objects.filter(ls,/^.*\.js$/),/^(.*)\.js$/)
 
+  console.log(lsjs)
+
   objects.mapKeys(lsjs, function (m){
-      var mod = require('d-utils/' + m)
+    var mod = require('d-utils/' + m)
     return it(u).has(objects.map(mod, function (){
       return it.function()
     }))
