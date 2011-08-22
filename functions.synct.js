@@ -10,4 +10,5 @@ exports ['identity function'] = function () {
   it(funx.id(null)).equal(null)
   it(funx.id(a)).equal(a)
   it(funx.id(funx.id)).equal(funx.id)
+
 }
