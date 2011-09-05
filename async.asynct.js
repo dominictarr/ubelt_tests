@@ -59,3 +59,120 @@ exports ['compose 3 async functions'] = function (test) {
   })
 
 }
+
+exports ['fallthrough passes it\' args to the callback'] = function (test){
+  async.fallthrough(1,2,3, function () {
+    var args = [].slice.call(arguments)
+    it(args).deepEqual([1,2,3])
+    test.done()
+  })
+}
+
+
+var _err = new Error ('INTENSIONAL ERROR')
+
+function willThrow () { 
+  var callback = [].pop.call(arguments)
+  callback (_err)
+}
+
+function expectThrow (err,callback) {
+  it(err).equal(_err)    
+  callback(null, 'success')
+}
+
+
+exports ['tryCatchPass call catch on error'] = function (test) {
+
+  async.tryCatchPass(
+    willThrow,
+    expectThrow,
+    null)
+  (function (err,suc) {
+    it(err).equal(null)
+    it(suc).equal('success')
+    test.done()
+  })
+
+}
+
+exports ['safe catches sync throws'] = function (test) {
+    var _err = new Error('SYNC ERROR')
+  async.safe(function () {
+    throw _err
+  })
+  (async.delay(function (err) {
+    it(err).equal(_err)
+    test.done() 
+  }))
+
+}
+
+exports ['safe prevents double callback'] = function (test) {
+    var _err = new Error('SYNC ERROR')
+  async.safe(function (callback) {
+    console.log('ignore double call message')
+    callback()
+    callback(_err)
+  })
+  (async.delay(function (err) {
+    it(err).equal(null)
+    test.done() 
+  }))
+}
+
+exports ['tryCatchPass call pass on no error'] = function (test) {
+
+  async.tryCatchPass(
+    function (callback) {
+      callback(null, 'success')
+    },
+    null,
+    function (suc, callback) {
+      it(suc).equal('success')
+      callback(null, 'success')
+    })
+  (function (err,suc) {
+    it(err).equal(null)
+    it(suc).equal('success')
+    test.done()
+  })
+
+}
+
+exports ['tryCatchPass methods are async safe (throws)'] = function (test) {
+
+  async.tryCatchPass(
+    function (callback) {
+      callback(null, 'success')
+    },
+    null,
+    function (suc, callback) {
+      throw _err
+    })
+  (function (err) {
+    it(err).equal(_err)
+    test.done()
+  })
+
+}
+
+exports ['tryCatchPass methods are async safe (double calls)'] = function (test) {
+
+  async.tryCatchPass(
+    function (callback) {
+      callback(null, 'success')
+    },
+    null,
+    function (suc, callback) {
+      console.log('ignore double call message')
+      callback(null, 'success')
+      callback(_err)
+    })
+  (function (err, suc) {
+    it(err).equal(null)
+    it(suc).equal('success')
+    test.done()
+ })
+
+}
