@@ -60,10 +60,10 @@ exports ['compose 3 async functions'] = function (test) {
 
 }
 
-exports ['fallthrough passes it\' args to the callback'] = function (test){
+exports ['fallthrough passes it\' args to the callback + null error param'] = function (test){
   async.fallthrough(1,2,3, function () {
     var args = [].slice.call(arguments)
-    it(args).deepEqual([1,2,3])
+    it(args).deepEqual([null,1,2,3])
     test.done()
   })
 }
@@ -174,5 +174,14 @@ exports ['tryCatchPass methods are async safe (double calls)'] = function (test)
     it(suc).equal('success')
     test.done()
  })
+
+}
+
+exports[ 'toAsync: convert sync function to async'] = function (test) {
+
+  async.toAsync(Math.random)(function(err, r) {
+    it(0 <= r && r <= 1).equal(true)
+    test.done()
+  })
 
 }
