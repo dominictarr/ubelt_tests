@@ -177,11 +177,74 @@ exports ['tryCatchPass methods are async safe (double calls)'] = function (test)
 
 }
 
-exports[ 'toAsync: convert sync function to async'] = function (test) {
+exports['toAsync: convert sync function to async'] = function (test) {
 
   async.toAsync(Math.random)(function(err, r) {
     it(0 <= r && r <= 1).equal(true)
     test.done()
   })
 
+}
+
+exports['timeout -- ensure that an async function callsback within timeout'] = function (test) {
+  var isCalled = false
+    , _x = async.timeout(function x(cb) {
+            isCalled = true
+            setTimeout(cb, 0)
+          }, 100)
+
+  it(_x).function()
+
+  _x(function () {
+      it(isCalled).ok()
+      test.done()
+    })
+}
+
+exports['timeout -- still passes args'] = function (test) {
+  var isCalled = false
+    , r = Math.random()
+    , _x = async.timeout(function x(cb) { isCalled = true; cb(null, r) }, 100)
+
+  it(_x).function()
+
+  _x(function (err, _r) {
+      if(err) throw err
+      it(isCalled).ok()
+      it(_r).equal(r)
+      test.done()
+    })
+}
+
+exports['timeout -- will call callback, if func doesn\'t'] = function (test) {
+  var isCalled = false
+    , r = Math.random()
+    , _x = async.timeout(function x(cb) { isCalled = true;}, 100)
+
+  it(_x).function()
+
+  _x(function (err) {
+      it(err).ok()
+      it(err.message).matches(/timeout/)
+      test.done()
+    })
+}
+
+exports['timeout -- will not allow multiple callbacks'] = function (test) {
+  var isCalled = false
+    , r = Math.random()
+    , _x = async.timeout(function x(cb) { 
+        isCalled = true; 
+        setTimeout(cb, 50)
+        setTimeout(cb, 50)
+        setTimeout(cb, 50)
+      }, 10)
+
+  it(_x).function()
+
+  _x(function (err) {
+      it(err).ok()
+      it(err.message).matches(/timeout/)
+      test.done()
+    })
 }
