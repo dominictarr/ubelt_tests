@@ -4,6 +4,21 @@ var objects = require('d-utils/objects')
 exports ['merge'] = function (){
   it(objects.merge({a: 1}, {b: 2})).deepEqual({a: 1, b: 2})
 }
+exports ['merge N'] = function (){
+  it(objects.merge({a: 1}, {b: 2}, {c: 3})).deepEqual({a: 1, b: 2, c: 3})
+}
+exports ['merge override from left'] = function (){
+  it(objects.merge({a: 1}, {a: 2, b: 2})).deepEqual({a: 2, b: 2})
+}
+exports ['merge override from left N'] = function (){
+  it(objects.merge({a: 1}, {a: 2, b: 2}, {b: 0, c: 3})).deepEqual({a: 2, b: 0, c: 3})
+}
+exports ['merge single arg'] = function (){
+  it(objects.merge({a: 2, b: 2})).deepEqual({a: 2, b: 2})
+}
+exports ['merge null'] = function (){
+  it(objects.merge()).equal(null)
+}
 
 exports ['each'] = function (){
   var on = {a: 1,b: 2, c: 3}, count = 0
