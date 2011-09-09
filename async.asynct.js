@@ -121,6 +121,17 @@ exports ['safe prevents double callback'] = function (test) {
   }))
 }
 
+exports ['safe throws if it does not have a callback'] = function (test) {
+  it(function () {
+    async.safe(function (callback) {})()
+  }).throws(function (err) {
+    console.log(err)
+    it(err.message).matches(/expected/)
+    test.done()
+  })
+}
+
+
 exports ['tryCatchPass call pass on no error'] = function (test) {
 
   async.tryCatchPass(
