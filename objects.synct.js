@@ -18,6 +18,13 @@ exports ['merge single arg'] = function (){
 }
 exports ['merge null'] = function (){
   it(objects.merge()).equal(null)
+  it(objects.merge(null)).equal(null)
+  it(objects.merge(null, null, null)).equal(null)
+}
+
+exports ['merge with null'] = function (){
+  it(objects.merge({x: 1}, null)).deepEqual({x: 1})
+  it(objects.merge(null, {x: 1})).deepEqual({x: 1})
 }
 
 exports ['each'] = function (){
