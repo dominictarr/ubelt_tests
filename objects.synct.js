@@ -33,6 +33,14 @@ exports ['deep merge'] = function () {
  
 }
 
+exports ['non overlapping'] = function () {
+//oh oops. deep merge takes only 2 args, not N. alse it copies. when merge mutates.
+//immutable is better because it's easier to reason about.
+ it(objects.deepMerge({a: 2}, {b: 'x' })).deepEqual({a: 2, b: 'x'})
+ 
+}
+
+
 exports ['each'] = function (){
   var on = {a: 1,b: 2, c: 3}, count = 0
   objects.each(on, function(v,k){

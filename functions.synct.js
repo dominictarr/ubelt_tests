@@ -61,9 +61,10 @@ exports ['deepCurry merges args'] = function () {
   it(rand).isFunction()
   it(rand()).equal(r)
   it(rand()).deepEqual([r])
+  it(rand(undefined, s)).deepEqual([r, s])
 
   var hi = funx.deepCurry(returnArgs, {rand:r})
 
-  it(rand({})).deepEqual([{rand: r}])
+  it(hi({})).deepEqual([{rand: r}])
 
 }
