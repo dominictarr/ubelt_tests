@@ -120,3 +120,6 @@ exports ['beforeCallback'] = function () {
 
   it(called).equal(2)
 }
+
+
+exports ['tryThis']

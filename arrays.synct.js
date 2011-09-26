@@ -46,3 +46,16 @@ exports ['empty'] = function (){
   it(arrays.empty([])).equal(true)
   it(arrays.empty([1])).equal(false)
 }
+
+exports ['flatten'] = function () {
+ 
+ it(arrays.flatten([1,2,3])).deepEqual([1,2,3])
+ it(arrays.flatten([])).deepEqual([])
+ it(arrays.flatten([[]])).deepEqual([])
+ it(arrays.flatten([[1]])).deepEqual([1])
+ 
+  var nested = [1,2,3, [2, 4, 9], [], [], [[[4]]]]
+  
+  it(arrays.flatten(nested)).deepEqual([1,2,3, 2, 4, 9, 4])
+
+}
