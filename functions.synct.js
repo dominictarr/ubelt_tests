@@ -68,3 +68,55 @@ exports ['deepCurry merges args'] = function () {
   it(hi({})).deepEqual([{rand: r}])
 
 }
+
+/*
+  before returns a function that gets called with the args to another function, 
+  and has tha chance to change the args.
+
+
+*/
+
+exports ['before'] = function () {
+  var called = 0
+    , A = Math.random()
+    , B = Math.random()
+    , C = Math.random()
+    ;
+
+  function ab (a, b) {
+    called ++
+    return [a, b]
+  }
+
+  var _ab = funx.before(ab, function (args) {
+    called ++
+    return [args[0], args[2]]
+  })
+
+  it(_ab(A,B,C)).deepEqual([A,C])
+  it(called).equal(2)
+}
+
+exports ['beforeCallback'] = function () {
+  var called = 0
+    , A = Math.random()
+    , B = Math.random()
+    , C = Math.random()
+    ;
+
+  function async(x, callback) {
+    callback (null, B, x, C)
+  }
+
+  var _async = funx.beforeCallback(async, function (args) {
+    called ++
+    return [args[0], args[2]]
+  })
+
+  _async (A, function (err, xyz) {
+    called ++
+    it(xyz).equal(A) 
+  })
+
+  it(called).equal(2)
+}
