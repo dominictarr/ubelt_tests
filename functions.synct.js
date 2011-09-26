@@ -1,5 +1,5 @@
 
-var funx = require('d-utils/functions')
+var funx = require('ubelt/functions')
   , it = require('it-is')
 
 exports ['identity function'] = function () {
@@ -45,5 +45,25 @@ exports['curry, with negative indexes'] = function () {
     called ++
     return hi
   }, -2, -1)(1, 4, 'hello2', {})).equal('hello2')
+
+}
+
+exports ['deepCurry merges args'] = function () {
+
+  function returnArgs () {
+    return [].slice.call(arguments)
+  }
+  var r = Math.random()
+    , s = Math.random()
+
+  var rand = funx.deepCurry(returnArgs, r)
+
+  it(rand).isFunction()
+  it(rand()).equal(r)
+  it(rand()).deepEqual([r])
+
+  var hi = funx.deepCurry(returnArgs, {rand:r})
+
+  it(rand({})).deepEqual([{rand: r}])
 
 }

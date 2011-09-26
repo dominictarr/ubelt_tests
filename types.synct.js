@@ -1,12 +1,12 @@
-var types = require('d-utils/types')
+var types = require('ubelt/types')
   , it = require('it-is')
 
 exports ['can check function,string,object, etc'] = function (){
 
   it(types).has({
-    isFunction: it.function(),
-    isString: it.function(),
-    isObject: it.function()
+    isFunction: it.isFunction (),
+    isString: it.isFunction (),
+    isObject: it.isFunction ()
   })
 
 }

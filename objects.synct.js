@@ -1,4 +1,4 @@
-var objects = require('d-utils/objects')
+var objects = require('ubelt/objects')
   , it = require('it-is')
 
 exports ['merge'] = function (){
@@ -25,6 +25,12 @@ exports ['merge null'] = function (){
 exports ['merge with null'] = function (){
   it(objects.merge({x: 1}, null)).deepEqual({x: 1})
   it(objects.merge(null, {x: 1})).deepEqual({x: 1})
+}
+
+exports ['deep merge'] = function () {
+
+ it(objects.deepMerge({a: {x: 1} }, {a: {y: 2} })).deepEqual({a: {x: 1, y: 2}})
+ 
 }
 
 exports ['each'] = function (){

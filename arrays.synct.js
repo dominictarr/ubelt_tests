@@ -1,10 +1,10 @@
 
-var arrays = require('d-utils/arrays')
+var arrays = require('ubelt/arrays')
   , it = require('it-is')
 
 exports ['api'] = function (){
 
-  it(arrays).has({init: it.function (),last: it.function (),head: it.function (),tail: it.function ()})
+  it(arrays).has({init: it.isFunction (),last: it.isFunction (),head: it.isFunction (),tail: it.isFunction ()})
 
 }
 

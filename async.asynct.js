@@ -1,5 +1,5 @@
 
-var async = require('d-utils/async')
+var async = require('ubelt/async')
   , it = require('it-is')
 
 //delay will delay the invocation a function by it's second args
