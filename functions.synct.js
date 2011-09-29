@@ -122,4 +122,48 @@ exports ['beforeCallback'] = function () {
 }
 
 
-exports ['tryThis']
+exports ['defer'] = function () {
+
+  var called = 0
+    , calledWith = []
+    ;
+
+  function checker() {
+    called ++
+    calledWith.push([].slice.call(arguments))
+  }
+
+  var defered = funx.defer(checker)
+  
+  it(called).equal(0)
+  defered(1)
+  defered(1,2,3)
+  defered(['boats'])
+  it(called).equal(0)
+
+  defered.flush() //empty 
+
+  it(calledWith).deepEqual([
+    [1],
+    [1,2,3],
+    [['boats']]
+  ])
+  
+  it(called).equal(3)
+
+  defered(777)
+  defered(null)
+  defered([true, false, undefined])
+
+  it(called).equal(6)
+
+  it(calledWith).deepEqual([
+    [1],
+    [1,2,3],
+    [['boats']],
+    [777],
+    [null],
+    [[true, false, undefined]]
+  ])
+
+}
