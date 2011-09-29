@@ -174,3 +174,20 @@ exports ['mapToArray'] = function (){
   })).deepEqual([1,2,3,4,5,6,7])
   
 }
+
+exports ['find'] = function () {
+
+  //
+  // sometime need to stop before the end, find is like that 
+  //
+
+  var numbers = [3, 5, 3, 7, 77, 21, 4]
+
+  it(objects.find(numbers, function (e) { return !(e % 2)})).equal(4)
+  it(objects.findKey(numbers, function (e) { return !(e % 2)})).equal(6)
+  it(objects.findReturn(numbers, function (e) { return !(e % 2)})).equal(true)
+
+  it(objects.find([], function () {})).equal(null)
+  it(objects.find(null, function () {})).equal(null)
+
+}
