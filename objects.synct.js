@@ -191,3 +191,19 @@ exports ['find'] = function () {
   it(objects.find(null, function () {})).equal(null)
 
 }
+
+exports ['path'] = function () {
+
+  var a1 = {A: 1}
+  
+  it(objects.path(a1, ['A'])).equal(1)
+  it(objects.path({A: {B: 4}}, ['A', 'B'])).equal(4)
+  it(objects.path({A: {B: 4}}, ['A', 'C'])).strictEqual(undefined)
+  it(objects.path(null, ['A', 'C'])).strictEqual(undefined) 
+  it(objects.path({Z: [0, 1, 2]}, ['Z', 2])).strictEqual(2) 
+  it(objects.path({Z: [0, 1, 2]}, ['Z', 0])).strictEqual(0) 
+  it(objects.path({Z: [0, 1, 2]}, ['Z', 0, 'T'])).strictEqual(undefined) 
+  it(objects.path({Z: null}, ['Z', 0, 'T'])).strictEqual(undefined) 
+  it(objects.path({Z: null}, ['Z'])).strictEqual(null) 
+
+}

@@ -167,3 +167,43 @@ exports ['defer'] = function () {
   ])
 
 }
+
+function returnArgs () {
+  return [].slice.call(arguments)
+}
+
+
+exports ['curryTail'] = function () {
+
+  var _123 = funx.curryTail(returnArgs, 1, 2, 3)
+  it(_123).isFunction()
+  it(_123(0)).deepEqual([0, 1, 2, 3])
+
+  var _ = funx.curryTail(returnArgs)
+  it(_).isFunction()
+  it(_(0)).deepEqual([0])
+  it(funx.curryTail(returnArgs)).equal(returnArgs)
+
+}
+
+exports ['curryHead'] = function () {
+
+  var A_ = funx.curryHead(returnArgs, 'a')
+
+  it(A_).isFunction()
+  
+  it(A_(1, 2, 3)).deepEqual(['a', 1, 2, 3])
+
+}
+
+exports ['curryTailHead'] = function () {
+
+  var _returnArgs = funx.curryTailHead(returnArgs)
+  it(_returnArgs).isFunction()
+
+  var returnArgs0 = _returnArgs(1, 2, 3)
+  it(returnArgs0).isFunction()
+
+  it(returnArgs0('z')).deepEqual(['z', 1, 2, 3])
+
+} 
