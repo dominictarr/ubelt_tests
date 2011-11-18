@@ -57,5 +57,14 @@ exports ['flatten'] = function () {
   var nested = [1,2,3, [2, 4, 9], [], [], [[[4]]]]
   
   it(arrays.flatten(nested)).deepEqual([1,2,3, 2, 4, 9, 4])
+}
+
+exports ['union'] = function () {
+  it(arrays.union([1,2], [3])).deepEqual([1,2,3])
+  it(arrays.union([1,2, 2], [3, 1])).deepEqual([1,2,3])
+  it(arrays.union([1,2, 2], [0, 3, 1])).deepEqual([1,2, 0, 3])
+  it(arrays.union([], [])).deepEqual([])
+  it(arrays.union([1], [])).deepEqual([1])
+  it(arrays.union([], [1])).deepEqual([1])
 
 }
