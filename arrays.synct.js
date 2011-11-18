@@ -66,5 +66,7 @@ exports ['union'] = function () {
   it(arrays.union([], [])).deepEqual([])
   it(arrays.union([1], [])).deepEqual([1])
   it(arrays.union([], [1])).deepEqual([1])
+  it(arrays.union([], null)).deepEqual([])
+  it(arrays.union(null, [])).deepEqual([])
 
 }
