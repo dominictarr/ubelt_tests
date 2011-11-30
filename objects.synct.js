@@ -132,7 +132,7 @@ exports ['filter'] = function (){
  
   it(objects.filter(on, function (x){
     return !(x % 2)
-  })).deepEqual({b: true, d:true, f:true})
+  })).deepEqual({b: 2, d:4, f:6})
 }
 
 exports ['filter with regexp'] = function (){
