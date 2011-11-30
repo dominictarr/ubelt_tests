@@ -207,3 +207,21 @@ exports ['path'] = function () {
   it(objects.path({Z: null}, ['Z'])).strictEqual(null) 
 
 }
+
+exports ['has'] = function () {
+  var x = {A: 1, B: 2}
+  
+  it(objects.has(x, {A: 1})).equal(true)
+  it(objects.has(x, {B: 2})).equal(true)
+  it(objects.has(x, {})).equal(true)
+  it(objects.has(x, {C: 3})).equal(false)
+
+  var y = {A: 1, B: 2, D: {C: 3}}
+  it(objects.has(y, {A: 1})).equal(true)
+  it(objects.has(y, {B: 2})).equal(true)
+  it(objects.has(y, {D: {}})).equal(true)
+  it(objects.has(y, {D: {C: 3}})).equal(true)
+  it(objects.has(y, {D: {C: 3, E: false}})).equal(false)
+
+
+}
