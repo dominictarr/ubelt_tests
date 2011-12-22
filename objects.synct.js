@@ -223,5 +223,15 @@ exports ['has'] = function () {
   it(objects.has(y, {D: {C: 3}})).equal(true)
   it(objects.has(y, {D: {C: 3, E: false}})).equal(false)
 
+}
 
+exports ['setPath'] = function () {
+
+  var x = {}
+    , c = Math.random()
+    , z = Math.random()
+  objects.setPath(x, ['a','b','c'], c)
+  it.equal(x.a.b.c, c)
+  objects.setPath(x, ['z'], z)
+  it.equal(x.z, z)
 }
