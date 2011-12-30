@@ -235,3 +235,27 @@ exports ['setPath'] = function () {
   objects.setPath(x, ['z'], z)
   it.equal(x.z, z)
 }
+
+exports ['enqueue'] = function () {
+  
+  //add an item to the end of an array if it is not already in the array.
+
+  var queue = []
+  
+  objects.enqueue(queue, 1)
+  it.deepEqual(queue, [1])
+
+  objects.enqueue(queue, 2)
+  objects.enqueue(queue, 3)
+  it.deepEqual(queue, [1, 2, 3])
+	
+  objects.enqueue(queue, 2)
+  it.deepEqual(queue, [1, 2, 3])
+
+  queue.shift()
+  it.deepEqual(queue, [2, 3])
+
+  objects.enqueue(queue, 1)
+  it.deepEqual(queue, [2, 3, 1])
+  
+}
